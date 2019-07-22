@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     # 'django.contrib.contenttypes',
     # 'django.contrib.sessions',
     # 'django.contrib.messages',
-    # 'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
     'rest_framework',
     'pdf_generator',
 ]
@@ -99,8 +99,31 @@ TEMPLATES = [
 # # Static files (CSS, JavaScript, Images)
 # # https://docs.djangoproject.com/en/2.2/howto/static-files/
 #
-# STATIC_URL = '/static/'
+STATIC_URL = '/static/'
 REPORT_ROOT = os.path.join(BASE_DIR, os.getenv('REPORT_ROOT', 'reports'))
 
 ATTACHMENTS_ROOT = os.path.join(BASE_DIR, os.getenv('ATTACHMENTS_ROOT', 'attached_files'))
 MEDIA_ROOT = ATTACHMENTS_ROOT
+
+
+###########
+#
+# Celery config
+#
+##########
+
+# CELERY CONFIG
+
+BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_MAX_RETRIES = 5
+
+
+CELERY_RETRY_COUNTDOWN = 60 # 1 minute
+
+

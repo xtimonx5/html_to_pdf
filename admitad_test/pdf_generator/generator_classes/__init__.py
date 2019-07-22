@@ -1,1 +1,1 @@
-from .pdf_generator import PdfToHtmlGenerator
+from .pdf_generator import HtmlToPDFGenerator

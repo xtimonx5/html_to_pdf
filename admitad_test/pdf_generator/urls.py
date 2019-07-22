@@ -1,11 +1,8 @@
-from django.urls import path, include
 from rest_framework import routers
-from .views import GeneratePdfApiView, IndexView
+from .views import GeneratePdfApiViewSet
 
-urlpatterns = [
-    path(r'', IndexView.as_view()),
-    path(r'gen_pdf', GeneratePdfApiView.as_view({
-        # 'get': 'get',
-        'post': 'post'
-    })),
-]
+router = routers.DefaultRouter()
+
+router.register('gen_pdf', GeneratePdfApiViewSet, 'html-2-pdf')
+
+urlpatterns = router.urls

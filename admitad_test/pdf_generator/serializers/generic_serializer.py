@@ -6,4 +6,4 @@ class GenericSourceToHtmlSerializer(Serializer):
         raise NotImplementedError
 
     def create(self, validated_data):
-        raise NotImplementedError
+        return validated_data['html']
