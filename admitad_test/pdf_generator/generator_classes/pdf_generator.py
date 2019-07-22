@@ -1,5 +1,4 @@
 import uuid
-from weasyprint import HTML
 
 from pdf_generator.tasks import generate_file
 from .generic_generator import GenericHtmlGenerator

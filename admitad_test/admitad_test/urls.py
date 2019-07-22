@@ -20,5 +20,4 @@ from django.conf import settings
 
 urlpatterns = [
     path('', include('pdf_generator.urls')),
-]
-# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.REPORT_URL, document_root=settings.REPORT_ROOT, show_indexes=True)

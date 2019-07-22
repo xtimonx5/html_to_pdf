@@ -1,4 +1,5 @@
 import os
+from urllib.parse import urljoin
 
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -25,6 +26,10 @@ class GeneratePdfApiViewSet(GenericViewSet):
         """
         return HtmlToPDFGenerator
 
+    @staticmethod
+    def get_url_for_file(report_name):
+        return urljoin(settings.REPORT_URL, report_name)
+
     def save_file_to_storage(self):
         file_obj = self.request.data['html']
         file_path = default_storage.save(file_obj.name, ContentFile(file_obj.read()))
@@ -43,7 +48,7 @@ class GeneratePdfApiViewSet(GenericViewSet):
         generator = generator_class(payload)
         generator.generate_file()
 
-        return Response(status=200, data={'filename': generator.report_name})
+        return Response(status=200, data={'url': self.get_url_for_file(generator.report_name)})
 
     @action(methods=['POST', ], detail=False, serializer_class=LinkToHtmlSerializer)
     def link_to_pdf(self, request, *args, **kwargs):
@@ -51,4 +56,4 @@ class GeneratePdfApiViewSet(GenericViewSet):
         generator_class = self.get_generator_class()
         generator = generator_class(payload=request.data)
         generator.generate_file()
-        return Response(status=200, data={'filename': generator.report_name})
+        return Response(status=200, data={'url': self.get_url_for_file(generator.report_name)})

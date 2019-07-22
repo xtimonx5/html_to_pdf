@@ -39,18 +39,10 @@ INSTALLED_APPS = [
     'pdf_generator',
 ]
 
-MIDDLEWARE = [
-    # 'django.middleware.security.SecurityMiddleware',
-    # 'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+MIDDLEWARE = []
 
 ROOT_URLCONF = 'admitad_test.urls'
-#
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
     'DEFAULT_PERMISSION_CLASSES': [],
@@ -78,42 +70,26 @@ TEMPLATES = [
         },
     },
 ]
-#
-# WSGI_APPLICATION = 'admitad_test.wsgi.application'
-#
-#
-# # Internationalization
-# # https://docs.djangoproject.com/en/2.2/topics/i18n/
-#
-# LANGUAGE_CODE = 'en-us'
-#
-# TIME_ZONE = 'UTC'
-#
-# USE_I18N = True
-#
-# USE_L10N = True
-#
-# USE_TZ = True
-#
-#
+
 # # Static files (CSS, JavaScript, Images)
 # # https://docs.djangoproject.com/en/2.2/howto/static-files/
 #
 STATIC_URL = '/static/'
 REPORT_ROOT = os.path.join(BASE_DIR, os.getenv('REPORT_ROOT', 'reports'))
+REPORT_URL = '/reports/'
 
 ATTACHMENTS_ROOT = os.path.join(BASE_DIR, os.getenv('ATTACHMENTS_ROOT', 'attached_files'))
+
 MEDIA_ROOT = ATTACHMENTS_ROOT
 
+# overrides test runner to avoid creating test DB
+TEST_RUNNER = 'pdf_generator.test_runner.NoDbTestRunner'
 
 ###########
 #
 # Celery config
 #
 ##########
-
-# CELERY CONFIG
-
 BROKER_URL = 'redis://redis:6379/0'
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
@@ -123,7 +99,6 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_MAX_RETRIES = 5
 
+CELERY_RETRY_COUNTDOWN = 60  # 1 minute
 
-CELERY_RETRY_COUNTDOWN = 60 # 1 minute
-
-
+CELERY_ALWAYS_EAGER = False
