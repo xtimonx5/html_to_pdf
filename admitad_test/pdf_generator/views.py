@@ -1,4 +1,5 @@
 import os
+import logging
 from urllib.parse import urljoin
 
 from django.core.files.base import ContentFile
@@ -14,6 +15,8 @@ from pdf_generator.serializers import (
     LinkToHtmlSerializer,
     FileToHtmlSerializer,
 )
+
+logger = logging.getLogger('generation')
 
 
 class GeneratePdfApiViewSet(GenericViewSet):

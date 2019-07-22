@@ -110,3 +110,5 @@ venv
 admitad_test/reports/*.pdf
 admitad_test/attached_files/*
 !admitad_test/attached_files/.gitkeep
+admitad_test/logs/*
+!admitad_test/logs/.gitkeep

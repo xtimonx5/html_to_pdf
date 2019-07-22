@@ -12,6 +12,11 @@ class PDFApiGenerator(TestCase):
     def setUp(self):
         self.client = APIClient()
 
+    @staticmethod
+    def get_path(file_path):
+        file_name = file_path.split('/')[-1]
+        return os.path.join(settings.REPORT_ROOT, file_name)
+
     @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_generate_from_link(self):
         response = self.client.post('/gen_pdf/link_to_pdf/',
@@ -19,6 +24,7 @@ class PDFApiGenerator(TestCase):
         response_dict = json.loads(response.content)
         self.assertEqual(response.status_code, HTTP_200_OK)
         self.assertIn('url', response_dict.keys())
+        self.assertTrue(os.path.isfile(self.get_path(response_dict['url'])))  # asserts that file exists
 
     @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_generate_from_link_invalid_params(self):
@@ -35,6 +41,7 @@ class PDFApiGenerator(TestCase):
             response_dict = json.loads(response.content)
             self.assertEqual(response.status_code, HTTP_200_OK)
             self.assertIn('url', response_dict.keys())
+            self.assertTrue(os.path.isfile(self.get_path(response_dict['url'])))  # asserts that file exists
 
     @override_settings(CELERY_ALWAYS_EAGER=True)
     def test_generate_from_file_invalid_params(self):

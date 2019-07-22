@@ -102,3 +102,34 @@ CELERY_MAX_RETRIES = 5
 CELERY_RETRY_COUNTDOWN = 60  # 1 minute
 
 CELERY_ALWAYS_EAGER = False
+
+#########
+#
+#  Logging
+#
+#########
+
+LOGGING = {
+    'disable_existing_loggers': False,
+    'version': 1,
+    'formatters': {
+        'generation': {
+            'format': '%(asctime)s  %(message)s',
+        }
+    },
+    'handlers': {
+        'generation': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/generation_logs.log',
+            'formatter': 'generation',
+        }
+    },
+    'loggers': {
+        'generation': {
+            'handlers': ['generation', ],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
