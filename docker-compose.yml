@@ -20,6 +20,17 @@ services:
     volumes:
       - "./admitad_test:/opt/django"
 
+  celery:
+    build: ./.docker/
+    command: /opt/queue.sh
+#    command: gosu root /usr/sbin/sshd -D
+    env_file:
+      - ./app.env
+    depends_on:
+      - redis
+    volumes:
+      - "./admitad_test:/opt/django"
+
 volumes:
   app:
     driver: local

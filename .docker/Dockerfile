@@ -132,8 +132,10 @@ RUN rm -rf /var/lib/apt/lists/*
 ##########################################################################################################
 
 COPY run.sh /opt/
-RUN chown ${BUILD_USER}:${BUILD_USER} /opt/run.sh
-RUN chmod +x /opt/run.sh
+COPY queue.sh /opt/
+RUN chown ${BUILD_USER}:${BUILD_USER} /opt/run.sh /opt/queue.sh
+RUN chmod +x /opt/run.sh /opt/queue.sh
+
 
 USER ${BUILD_USER}
 
