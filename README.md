@@ -9,12 +9,12 @@ To run application:
 
 Allowed endpoints:
 
-1. `/gen_pdf/link_to_pdf/` - generate link to pdf file
+1. `/gen_pdf/link_to_pdf/` - generate pdf from link 
  
-2. `/gen_pdf/file_to_pdf/` - To find who is on N place and also it's "neighbors" 
+2. `/gen_pdf/file_to_pdf/` - generate pdf from file 
 
 
 
 
-Make commands (execute from base dir or project)
+Make commands (execute from base dir of project)
 1. `make test` - run unit tests
